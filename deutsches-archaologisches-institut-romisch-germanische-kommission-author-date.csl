@@ -18,7 +18,7 @@
     <category field="anthropology"/>
     <category field="humanities"/>
     <summary>This citation style uses the citation guidelines provided by the Romano-Germanic Commission of the German Archaeological Institute (DGUF). An older version was known as "RGK_archaeology_DGUF". Original external style for reference: https://www.dguf.de/fileadmin/user_upload/Arbeitskreise/AK_DGUF-Zotero/RGK_archaeology_DGUF.csl</summary>
-    <updated>2025-10-29T14:20:26+00:00</updated>
+    <updated>2026-05-27T14:29:49+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="de">
@@ -86,6 +86,7 @@
   </macro>
   <macro name="url">
     <text variable="URL" prefix="URL: "/>
+    <date form="text" variable="accessed" prefix=" (" suffix=")"/>
   </macro>
   <macro name="year-date">
     <choose>
@@ -100,11 +101,9 @@
     </choose>
   </macro>
   <macro name="collection">
-    <group delimiter=" ">
-      <text variable="collection-title"/>
-      <text variable="collection-number"/>
-      <text variable="volume" prefix="(" suffix=")"/>
-    </group>
+    <text variable="collection-title" form="short"/>
+    <text variable="collection-number" prefix=" "/>
+    <text variable="volume" prefix="/" suffix=" "/>
   </macro>
   <macro name="published">
     <text variable="edition" vertical-align="sup"/>
@@ -160,13 +159,15 @@
           <date-part name="year"/>
         </date>
       </group>
-      <group delimiter=" " suffix=".">
+      <group delimiter=" " suffix="." display="indent">
+      <!-- To Work with indent in MS Word, a second display attribute has to be added: -->
+      <!-- <group prefix="" delimiter=" " suffix="." display="indent" display="block"> -->
         <choose>
           <if type="bill book graphic legal_case motion_picture report song chapter entry-dictionary paper-conference article article-journal article-magazine article-newspaper broadcast interview manuscript map patent personal_communication song speech thesis webpage" match="any">
             <text macro="author" suffix=","/>
             <choose>
               <if type="bill book graphic broadcast legal_case motion_picture report song manuscript map patent personal_communication speech" match="any">
-                <group delimiter=" ">
+                <group delimiter=" " suffix=".">
                   <group delimiter=". ">
                     <text variable="title"/>
                     <text macro="collection"/>
@@ -216,7 +217,7 @@
                   <group prefix=" " delimiter=", ">
                     <group delimiter=" ">
                       <text variable="container-title" form="short"/>
-                      <group delimiter=",">
+                      <group delimiter="/">
                         <text variable="volume"/>
                         <text variable="issue"/>
                       </group>
@@ -268,7 +269,7 @@
                 </choose>
               </if>
               <else>
-                <text macro="url" prefix="URL: "/>
+                <text macro="url"/> <!-- prefix already in macro definiton above -->
               </else>
             </choose>
           </else-if>
